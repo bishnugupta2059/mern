@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+</head>
+
+<body>
+    <!-- fetch use take data from API .then a convert in json .then b use convert data -->
+    <!-- fetch ('url').then(a=>a.json()) .then(b=>setCat (b)) -->
+    <div id="root"></div>
+    <script type="text/babel">
+        let{useState,useEffect}=React
+        function App() {
+            let[count,setCount]=useState(10)
+            let[data,setData]=useState([])
+            useEffect(()=>{ fetch('https://fakestoreapi.com/products').then(a=>a.json()).then(b=>setData(b))},[])
+            console.log(data)
+                
+            return <div>
+                
+                <h1>Ract hook{count}</h1>
+                <button onClick={()=>setCount(count+1)}>++</button>
+                <ul className="grid grid-cols-3 gap-4">
+                    {data.map(item=><li className="border"> <img src={item.image}/>{item.title}</li>)}
+                    
+                    
+                    </ul>
+            </div>
+
+
+
+
+        }
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+
+
+    </script>
+    
+</body>
+
+</html>
